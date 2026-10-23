@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050806">
+<title>UNKNOWN // PROJECT 001</title>
+<style>
+:root{--bg:#050806;--panel:#09110c;--green:#83ffad;--muted:#7a9983;--line:#1d3a28;--red:#ff6f6f}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% 0%,#102218 0%,var(--bg) 55%);color:#d5f7df;font:16px/1.65 "Courier New",monospace;min-height:100vh}
+main{width:min(900px,92%);margin:0 auto;padding:34px 0 70px}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:.78rem;letter-spacing:.12em;border-bottom:1px solid var(--line);padding-bottom:14px}
+.logo{font-size:clamp(2.2rem,8vw,5rem);letter-spacing:.16em;color:var(--green);line-height:1.1;margin:48px 0 8px;text-shadow:0 0 22px #47ff7a33}
+.sub{color:var(--muted);letter-spacing:.14em;font-size:.82rem}
+.panel{border:1px solid var(--line);background:#07100bd9;padding:clamp(18px,4vw,32px);margin-top:28px;box-shadow:0 12px 50px #0005}
+.label{color:var(--green);font-size:.78rem;letter-spacing:.14em;margin-bottom:14px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;color:#c7e8d0;margin:0}
+.rule{height:1px;background:var(--line);margin:22px 0}
+.clue{color:var(--green);font-size:1.1rem;letter-spacing:.1em}
+form{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+input{flex:1;min-width:180px;background:#030604;border:1px solid #31533b;color:var(--green);padding:14px;font:inherit;outline:none}
+input:focus{border-color:var(--green);box-shadow:0 0 0 2px #83ffad20}
+button{background:var(--green);color:#031007;border:0;padding:14px 20px;font:bold .9rem "Courier New",monospace;cursor:pointer}
+button:hover{filter:brightness(1.1)}
+.status{min-height:28px;margin-top:12px;color:var(--muted);font-size:.9rem}
+.hidden{display:none}
+ul{padding-left:22px}
+li{margin:8px 0}
+footer{margin-top:34px;color:#53745d;font-size:.75rem}
+a{color:var(--green)}
+.blink{animation:blink 1.1s steps(2,start) infinite}
+@keyframes blink{to{visibility:hidden}}
+@media(prefers-reduced-motion:reduce){.blink{animation:none}}
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><span>UNKNOWN NETWORK // NODE 001</span><span>CONNECTION: UNVERIFIED</span></div>
+  <header>
+    <div class="logo">UNKNOWN<span class="blink">_</span></div>
+    <div class="sub">AN INTERACTIVE MYSTERY // FILE 001-A</div>
+  </header>
+  <section class="panel">
+    <div class="label">[ INCOMING TRANSMISSION ]</div>
+    <pre>> SIGNAL DETECTED
+> SOURCE: UNKNOWN
+> MESSAGE INTEGRITY: 98.7%
+
+You were not supposed to find this.
+
+Most will see nothing.
+Some will see a pattern.
+Few will understand what it means.
+
+The first key is already in front of you.
+
+LOOK CLOSER.</pre>
+    <div class="rule"></div>
+    <div class="label">[ CHALLENGE 01 // THE OBVIOUS IS INVISIBLE ]</div>
+    <p>Sometimes a message hides in plain sight. What instruction appears at the end of the transmission?</p>
+    <form id="answerForm">
+      <input id="answer" aria-label="Your answer" placeholder="ENTER THE KEY..." autocomplete="off" spellcheck="false" required>
+      <button type="submit">SUBMIT KEY</button>
+    </form>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+  </section>
+  <section class="panel hidden" id="stage2">
+    <div class="label">[ ACCESS GRANTED // STAGE 02 ]</div>
+    <pre>Good. You read what was written.
+
+But reading is not the same as seeing.
+
+The next key is hidden at the beginning of each line:
+
+Silence carries information.
+Every pattern has an origin.
+Each ending points somewhere.
+Keep what matters.
+Read between the lines.
+Examine what remains.</pre>
+    <div class="rule"></div>
+    <p>Take the first letter of each line. Enter the six-letter word.</p>
+    <form id="answerForm2">
+      <input id="answer2" aria-label="Second answer" placeholder="ENTER THE NEXT KEY..." autocomplete="off" spellcheck="false" required>
+      <button type="submit">DECODE</button>
+    </form>
+    <div class="status" id="status2" role="status" aria-live="polite"></div>
+  </section>
+  <section class="panel hidden" id="stage3">
+    <div class="label">[ TRANSMISSION RECOVERED // STAGE 03 ]</div>
+    <pre>YOU HAVE FOUND THE FIRST LAYER.
+
+There are no shortcuts.
+There are no random details.
+Every clue was placed deliberately.
+
+Keep this phrase: THE FIRST DOOR IS OPEN.
+
+More files will be added as the investigation grows.</pre>
+    <div class="rule"></div>
+    <p class="clue">END OF FILE 001-A <span class="blink">_</span></p>
+  </section>
+  <footer>FICTIONAL PUZZLE EXPERIENCE // NO TRACKING OR DATA COLLECTION IN THIS DEMO</footer>
+</main>
+<script>
+const normalize = value => value.trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+document.getElementById("answerForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const status = document.getElementById("status");
+  if (normalize(document.getElementById("answer").value) === "LOOKCLOSER") {
+    document.getElementById("stage2").classList.remove("hidden");
+    status.textContent = "KEY ACCEPTED. SECOND FILE DECRYPTED.";
+    document.getElementById("stage2").scrollIntoView({behavior:"smooth",block:"start"});
+  } else {
+    status.textContent = "KEY REJECTED. RE-EXAMINE THE TRANSMISSION.";
+  }
+});
+document.getElementById("answerForm2").addEventListener("submit", event => {
+  event.preventDefault();
+  const status = document.getElementById("status2");
+  if (normalize(document.getElementById("answer2").value) === "SEEKER") {
+    document.getElementById("stage3").classList.remove("hidden");
+    status.textContent = "PATTERN CONFIRMED.";
+    document.getElementById("stage3").scrollIntoView({behavior:"smooth",block:"start"});
+  } else {
+    status.textContent = "NO MATCH. READ THE FIRST CHARACTER OF EACH LINE.";
+  }
+});
+</script>
+</body>
+</html>
